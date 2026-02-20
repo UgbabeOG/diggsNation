@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Check, Crown, ShieldCheck, Zap } from "lucide-react"
@@ -66,17 +67,17 @@ export default function SubscriptionTiers() {
             <Card 
               key={tier.name} 
               className={cn(
-                "relative flex flex-col border-2 transition-all hover:scale-105",
+                "relative flex flex-col border-2 transition-all hover:scale-105 group",
                 tier.popular ? "border-primary shadow-2xl shadow-primary/20" : "border-border"
               )}
             >
               {tier.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <Badge className="bg-primary px-3 py-1 text-white">MOST POPULAR</Badge>
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                  <Badge className="bg-primary px-3 py-1 text-white animate-pulse">MOST POPULAR</Badge>
                 </div>
               )}
               <CardHeader>
-                <div className={cn("mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl", tier.color)}>
+                <div className={cn("mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110", tier.color)}>
                   <tier.icon className="h-6 w-6 text-white" />
                 </div>
                 <CardTitle className="text-2xl font-bold">{tier.name}</CardTitle>
@@ -97,8 +98,14 @@ export default function SubscriptionTiers() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button variant={tier.buttonVariant} className="w-full h-12 text-lg font-bold">
-                  Become a {tier.name} Member
+                <Button 
+                  variant={tier.buttonVariant} 
+                  className={cn(
+                    "w-full h-12 text-lg font-bold uppercase tracking-widest transition-all active:scale-95",
+                    tier.popular ? "bg-primary hover:bg-primary/90 hover:scale-[1.02] shadow-lg shadow-primary/20" : "hover:scale-[1.02]"
+                  )}
+                >
+                  Subscribe
                 </Button>
               </CardFooter>
             </Card>

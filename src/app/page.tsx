@@ -1,3 +1,6 @@
+
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { Trophy, Users, Star, Play, ShoppingCart, LayoutDashboard, ArrowRight } from "lucide-react"
@@ -5,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import SubscriptionTiers from "@/components/SubscriptionTiers"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
+import Autoplay from "embla-carousel-autoplay"
 import {
   Carousel,
   CarouselContent,
@@ -59,18 +63,18 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         <div className="container relative mx-auto flex h-full flex-col justify-center px-4">
-          <Badge className="w-fit mb-6 bg-primary text-white font-bold uppercase tracking-widest px-4 py-1">Official Platform</Badge>
-          <h1 className="max-w-4xl text-6xl font-black uppercase italic tracking-tighter sm:text-7xl md:text-8xl lg:text-9xl">
+          <Badge className="w-fit mb-6 bg-primary text-white font-bold uppercase tracking-widest px-4 py-1 animate-in fade-in slide-in-from-bottom-4 duration-700">Official Platform</Badge>
+          <h1 className="max-w-4xl text-6xl font-black uppercase italic tracking-tighter sm:text-7xl md:text-8xl lg:text-9xl animate-in fade-in slide-in-from-bottom-8 duration-1000">
             DIGGS <span className="text-primary">NATION</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-xl font-medium text-slate-300 md:text-2xl">
+          <p className="mt-6 max-w-2xl text-xl font-medium text-slate-300 md:text-2xl animate-in fade-in slide-in-from-bottom-12 duration-1000">
             Your front-row seat to the life and career of Steffon Diggs. Exclusive content, elite community, and unique experiences.
           </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button size="lg" className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90" asChild>
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-16 duration-1000">
+            <Button size="lg" className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20" asChild>
               <Link href="#memberships">Join The Nation</Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 text-xl font-bold border-white text-white hover:bg-white/10" asChild>
+            <Button size="lg" variant="outline" className="h-14 px-8 text-xl font-bold border-white text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all" asChild>
               <Link href="/feed">Explore Content</Link>
             </Button>
           </div>
@@ -87,57 +91,62 @@ export default function Home() {
             </div>
           </div>
 
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {featuredCards.map((card, index) => {
-                const cardImg = PlaceHolderImages.find(img => img.id === card.image)
-                return (
-                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Link href={card.link}>
-                      <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full">
-                        <div className="relative aspect-[16/9] overflow-hidden">
-                          <Image
-                            src={cardImg?.imageUrl || ""}
-                            alt={card.title}
-                            fill
-                            className="object-cover transition-transform group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-                          <Badge className="absolute top-4 left-4 bg-primary font-bold">
-                            {card.tag}
-                          </Badge>
-                        </div>
-                        <CardContent className="p-6">
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 rounded-lg bg-primary/10">
-                              <card.icon className="h-6 w-6 text-primary" />
+          <div className="relative px-12">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              plugins={[
+                Autoplay({
+                  delay: 4000,
+                }),
+              ]}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {featuredCards.map((card, index) => {
+                  const cardImg = PlaceHolderImages.find(img => img.id === card.image)
+                  return (
+                    <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                      <Link href={card.link}>
+                        <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full">
+                          <div className="relative aspect-[16/9] overflow-hidden">
+                            <Image
+                              src={cardImg?.imageUrl || ""}
+                              alt={card.title}
+                              fill
+                              className="object-cover transition-transform group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                            <Badge className="absolute top-4 left-4 bg-primary font-bold">
+                              {card.tag}
+                            </Badge>
+                          </div>
+                          <CardContent className="p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="p-2 rounded-lg bg-primary/10">
+                                <card.icon className="h-6 w-6 text-primary" />
+                              </div>
+                              <h3 className="text-xl font-bold uppercase italic">{card.title}</h3>
                             </div>
-                            <h3 className="text-xl font-bold uppercase italic">{card.title}</h3>
-                          </div>
-                          <p className="text-muted-foreground mb-6 line-clamp-2">
-                            {card.description}
-                          </p>
-                          <div className="flex items-center text-primary font-bold text-sm group-hover:gap-2 transition-all">
-                            Learn More <ArrowRight className="h-4 w-4 ml-1" />
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  </CarouselItem>
-                )
-              })}
-            </CarouselContent>
-            <div className="hidden md:block">
-              <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2" />
-              <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2" />
-            </div>
-          </Carousel>
+                            <p className="text-muted-foreground mb-6 line-clamp-2">
+                              {card.description}
+                            </p>
+                            <div className="flex items-center text-primary font-bold text-sm group-hover:gap-2 transition-all">
+                              Learn More <ArrowRight className="h-4 w-4 ml-1" />
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    </CarouselItem>
+                  )
+                })}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex -left-4 hover:bg-primary hover:text-white" />
+              <CarouselNext className="hidden md:flex -right-4 hover:bg-primary hover:text-white" />
+            </Carousel>
+          </div>
         </div>
       </section>
 
@@ -153,29 +162,29 @@ export default function Home() {
           </div>
 
           <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-6 rounded-full bg-primary/10 p-6">
+            <div className="flex flex-col items-center text-center group">
+              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
                 <Star className="h-10 w-10 text-primary" />
               </div>
               <h3 className="mb-3 text-xl font-bold">Exclusive Content</h3>
               <p className="text-muted-foreground">Behind-the-scenes footage and articles you won't find anywhere else.</p>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-6 rounded-full bg-primary/10 p-6">
+            <div className="flex flex-col items-center text-center group">
+              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
                 <Users className="h-10 w-10 text-primary" />
               </div>
               <h3 className="mb-3 text-xl font-bold">Elite Community</h3>
               <p className="text-muted-foreground">Connect with other die-hard fans in our private member forums.</p>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-6 rounded-full bg-primary/10 p-6">
+            <div className="flex flex-col items-center text-center group">
+              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
                 <Play className="h-10 w-10 text-primary" />
               </div>
               <h3 className="mb-3 text-xl font-bold">Live Q&As</h3>
               <p className="text-muted-foreground">Talk directly to Steffon during our exclusive live streaming sessions.</p>
             </div>
-            <div className="flex flex-col items-center text-center">
-              <div className="mb-6 rounded-full bg-primary/10 p-6">
+            <div className="flex flex-col items-center text-center group">
+              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
                 <ShoppingCart className="h-10 w-10 text-primary" />
               </div>
               <h3 className="mb-3 text-xl font-bold">Priority Merch</h3>
@@ -194,7 +203,7 @@ export default function Home() {
               <p className="text-lg text-muted-foreground mb-8">
                 Official Steffon Diggs gear designed for performance and style. VVIP members get early access and exclusive discounts.
               </p>
-              <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20" asChild>
                 <Link href="/shop">Shop the Collection</Link>
               </Button>
             </div>

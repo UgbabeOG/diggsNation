@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-diggs",
+      "description": "Steffon Diggs in action on the field",
+      "imageUrl": "https://images.unsplash.com/flagged/photo-1568733278550-3aa6e87486d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhbWVyaWNhbiUyMGZvb3RiYWxsJTIwcGxheWVyfGVufDB8fHx8MTc3MTYyMjQ5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "american football player"
+    },
+    {
+      "id": "merch-jersey",
+      "description": "Official Diggs Nation Jersey",
+      "imageUrl": "https://images.unsplash.com/photo-1668791160369-d20b8175eab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmb290YmFsbCUyMGplcnNleXxlbnwwfHx8fDE3NzE1NzAyNzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "football jersey"
+    },
+    {
+      "id": "exclusive-content-1",
+      "description": "Behind the scenes training session",
+      "imageUrl": "https://images.unsplash.com/photo-1766525087638-fcc969c61b37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhdGhsZXRlJTIwdHJhaW5pbmd8ZW58MHx8fHwxNzcxNjIyNDg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "athlete training"
+    },
+    {
+      "id": "exclusive-content-2",
+      "description": "Post-game interview",
+      "imageUrl": "https://images.unsplash.com/photo-1760037028485-d00dd2b8f6f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzcG9ydHMlMjBpbnRlcnZpZXd8ZW58MHx8fHwxNzcxNjIyNDg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sports interview"
+    },
+    {
+      "id": "avatar-fan",
+      "description": "Fan avatar placeholder",
+      "imageUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzE1OTUwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
 }

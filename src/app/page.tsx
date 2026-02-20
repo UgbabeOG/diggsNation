@@ -3,7 +3,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Trophy, Users, Star, Play, ShoppingCart, LayoutDashboard, ArrowRight } from "lucide-react"
+import { Users, Star, LayoutDashboard, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import SubscriptionTiers from "@/components/SubscriptionTiers"
@@ -71,8 +71,11 @@ export default function Home() {
             Your front-row seat to the life and career of Steffon Diggs. Exclusive content, elite community, and unique experiences.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-16 duration-1000">
-            <Button size="lg" className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20" asChild>
-              <Link href="#memberships">Join The Nation</Link>
+            <Button size="lg" className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 group" asChild>
+              <Link href="#memberships">
+                Join The Nation
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
             <Button size="lg" variant="outline" className="h-14 px-8 text-xl font-bold border-white text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all" asChild>
               <Link href="/feed">Explore Content</Link>
@@ -91,7 +94,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative px-12">
+          <div className="relative group/carousel">
             <Carousel
               opts={{
                 align: "start",
@@ -100,6 +103,7 @@ export default function Home() {
               plugins={[
                 Autoplay({
                   delay: 4000,
+                  stopOnInteraction: false,
                 }),
               ]}
               className="w-full"
@@ -110,7 +114,7 @@ export default function Home() {
                   return (
                     <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                       <Link href={card.link}>
-                        <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full">
+                        <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full shadow-lg">
                           <div className="relative aspect-[16/9] overflow-hidden">
                             <Image
                               src={cardImg?.imageUrl || ""}
@@ -133,8 +137,8 @@ export default function Home() {
                             <p className="text-muted-foreground mb-6 line-clamp-2">
                               {card.description}
                             </p>
-                            <div className="flex items-center text-primary font-bold text-sm group-hover:gap-2 transition-all">
-                              Learn More <ArrowRight className="h-4 w-4 ml-1" />
+                            <div className="flex items-center text-primary font-bold text-sm">
+                              Learn More <ArrowRight className="h-4 w-4 ml-1 transition-transform group-hover:translate-x-1" />
                             </div>
                           </CardContent>
                         </Card>
@@ -143,8 +147,12 @@ export default function Home() {
                   )
                 })}
               </CarouselContent>
-              <CarouselPrevious className="hidden md:flex -left-4 hover:bg-primary hover:text-white" />
-              <CarouselNext className="hidden md:flex -right-4 hover:bg-primary hover:text-white" />
+              <div className="absolute -left-4 top-1/2 -translate-y-1/2 md:-left-12">
+                <CarouselPrevious className="h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
+              </div>
+              <div className="absolute -right-4 top-1/2 -translate-y-1/2 md:-right-12">
+                <CarouselNext className="h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
+              </div>
             </Carousel>
           </div>
         </div>
@@ -153,49 +161,8 @@ export default function Home() {
       {/* Subscription Tiers */}
       <SubscriptionTiers />
 
-      {/* Features Grid */}
-      <section className="py-24 bg-card">
-        <div className="container mx-auto px-4">
-          <div className="mb-16 text-center">
-            <h2 className="text-3xl font-black uppercase md:text-5xl">Member Perks</h2>
-            <div className="mx-auto mt-4 h-1 w-24 bg-primary" />
-          </div>
-
-          <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-            <div className="flex flex-col items-center text-center group">
-              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
-                <Star className="h-10 w-10 text-primary" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold">Exclusive Content</h3>
-              <p className="text-muted-foreground">Behind-the-scenes footage and articles you won't find anywhere else.</p>
-            </div>
-            <div className="flex flex-col items-center text-center group">
-              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
-                <Users className="h-10 w-10 text-primary" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold">Elite Community</h3>
-              <p className="text-muted-foreground">Connect with other die-hard fans in our private member forums.</p>
-            </div>
-            <div className="flex flex-col items-center text-center group">
-              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
-                <Play className="h-10 w-10 text-primary" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold">Live Q&As</h3>
-              <p className="text-muted-foreground">Talk directly to Steffon during our exclusive live streaming sessions.</p>
-            </div>
-            <div className="flex flex-col items-center text-center group">
-              <div className="mb-6 rounded-full bg-primary/10 p-6 transition-transform group-hover:scale-110">
-                <ShoppingCart className="h-10 w-10 text-primary" />
-              </div>
-              <h3 className="mb-3 text-xl font-bold">Priority Merch</h3>
-              <p className="text-muted-foreground">Get first dibs on limited edition apparel and memorabilia.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Merch Teaser */}
-      <section className="py-24">
+      <section className="py-24 bg-zinc-900/30">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-16">
             <div className="flex-1">
@@ -207,7 +174,7 @@ export default function Home() {
                 <Link href="/shop">Shop the Collection</Link>
               </Button>
             </div>
-            <div className="flex-1 relative aspect-square w-full max-w-md overflow-hidden rounded-2xl border-2 border-primary/20">
+            <div className="flex-1 relative aspect-square w-full max-w-md overflow-hidden rounded-2xl border-2 border-primary/20 shadow-2xl">
               <Image 
                 src={merchImage?.imageUrl || ""}
                 alt={merchImage?.description || ""}

@@ -4,7 +4,7 @@ import './globals.css';
 import Navigation from '@/components/Navigation';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
-import { initializeFirebase } from '@/firebase';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Diggs Nation | Official Steffon Diggs Fan Platform',
@@ -16,8 +16,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { firebaseApp, firestore, auth } = initializeFirebase();
-
   return (
     <html lang="en" className="dark">
       <head>
@@ -25,10 +23,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-body antialiased min-h-screen bg-background text-foreground">
-        <FirebaseClientProvider firebaseApp={firebaseApp} firestore={firestore} auth={auth}>
+      <body className="font-body antialiased min-h-screen bg-background text-foreground flex flex-col">
+        <FirebaseClientProvider>
           <Navigation />
-          <main>{children}</main>
+          <main className="flex-1">{children}</main>
           <footer className="border-t py-12 bg-card">
             <div className="container mx-auto px-4">
               <div className="flex flex-col md:flex-row justify-between items-center gap-10">
@@ -39,14 +37,14 @@ export default function RootLayout({
                   </p>
                 </div>
                 <div className="flex flex-wrap justify-center md:justify-end gap-6 md:gap-8 text-sm text-muted-foreground font-medium">
-                  <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-                  <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+                  <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
+                  <Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link>
                   <a 
                     href="mailto:officialmanagement3067@gmail.com" 
-                    className="hover:text-primary transition-colors flex items-center gap-2 break-all"
+                    className="hover:text-primary transition-colors flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left"
                   >
-                    <span className="shrink-0 text-primary">Contact:</span>
-                    officialmanagement3067@gmail.com
+                    <span className="shrink-0 text-primary font-bold">Contact:</span>
+                    <span className="break-all opacity-80 hover:opacity-100 transition-opacity">officialmanagement3067@gmail.com</span>
                   </a>
                 </div>
               </div>

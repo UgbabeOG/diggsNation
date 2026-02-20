@@ -4,11 +4,12 @@ import { Check, Crown, ShieldCheck, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
 
 const tiers = [
   {
     name: "VIP",
-    price: "$9.99",
+    price: "$499.99",
     description: "Perfect for casual fans who want to get closer.",
     icon: ShieldCheck,
     features: [
@@ -22,7 +23,7 @@ const tiers = [
   },
   {
     name: "VVIP",
-    price: "$24.99",
+    price: "$995.99",
     description: "The ultimate fan experience with live access.",
     icon: Crown,
     features: [
@@ -36,8 +37,8 @@ const tiers = [
     buttonVariant: "default" as const,
   },
   {
-    name: "Premium",
-    price: "$49.99",
+    name: "Premium VIP",
+    price: "$1,480.99",
     description: "For the die-hard fans who want it all.",
     icon: Zap,
     features: [
@@ -107,5 +108,3 @@ export default function SubscriptionTiers() {
     </section>
   )
 }
-
-import { cn } from "@/lib/utils"

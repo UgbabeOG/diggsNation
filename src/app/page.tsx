@@ -1,9 +1,45 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Trophy, Users, Star, Play, ShoppingCart } from "lucide-react"
+import { Trophy, Users, Star, Play, ShoppingCart, LayoutDashboard, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import SubscriptionTiers from "@/components/SubscriptionTiers"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import { Card, CardContent } from "@/components/ui/card"
+
+const featuredCards = [
+  {
+    title: "The Daily Digest",
+    description: "Get AI-summarized news and updates tailored to your interests.",
+    icon: LayoutDashboard,
+    link: "/feed",
+    image: "exclusive-content-1",
+    tag: "Personalized"
+  },
+  {
+    title: "Locker Room Chat",
+    description: "Connect with the most dedicated fans in the nation's community.",
+    icon: Users,
+    link: "/community",
+    image: "avatar-fan",
+    tag: "Social"
+  },
+  {
+    title: "Join The Nation",
+    description: "Explore our exclusive membership tiers and elite perks.",
+    icon: Star,
+    link: "#memberships",
+    image: "hero-diggs",
+    tag: "Elite Access"
+  }
+]
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-diggs")
@@ -41,7 +77,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Subscription Tiers - Featured prominently */}
+      {/* Featured Carousel Section */}
+      <section className="py-24 bg-zinc-900/50">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 flex items-center justify-between">
+            <div>
+              <h2 className="text-3xl font-black uppercase italic tracking-tighter">Explore the Nation</h2>
+              <p className="text-muted-foreground mt-2">Discover what's happening inside the platform.</p>
+            </div>
+          </div>
+
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {featuredCards.map((card, index) => {
+                const cardImg = PlaceHolderImages.find(img => img.id === card.image)
+                return (
+                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <Link href={card.link}>
+                      <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full">
+                        <div className="relative aspect-[16/9] overflow-hidden">
+                          <Image
+                            src={cardImg?.imageUrl || ""}
+                            alt={card.title}
+                            fill
+                            className="object-cover transition-transform group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+                          <Badge className="absolute top-4 left-4 bg-primary font-bold">
+                            {card.tag}
+                          </Badge>
+                        </div>
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="p-2 rounded-lg bg-primary/10">
+                              <card.icon className="h-6 w-6 text-primary" />
+                            </div>
+                            <h3 className="text-xl font-bold uppercase italic">{card.title}</h3>
+                          </div>
+                          <p className="text-muted-foreground mb-6 line-clamp-2">
+                            {card.description}
+                          </p>
+                          <div className="flex items-center text-primary font-bold text-sm group-hover:gap-2 transition-all">
+                            Learn More <ArrowRight className="h-4 w-4 ml-1" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </CarouselItem>
+                )
+              })}
+            </CarouselContent>
+            <div className="hidden md:block">
+              <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2" />
+            </div>
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Subscription Tiers */}
       <SubscriptionTiers />
 
       {/* Features Grid */}
@@ -118,5 +218,3 @@ export default function Home() {
     </div>
   )
 }
-
-import { Badge } from "@/components/ui/badge"

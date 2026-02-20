@@ -102,10 +102,10 @@ export default function SubscriptionTiers() {
                   variant={tier.buttonVariant} 
                   className={cn(
                     "w-full h-12 text-lg font-bold uppercase tracking-widest transition-all active:scale-95",
-                    tier.popular ? "bg-primary hover:bg-primary/90 hover:scale-[1.02] shadow-lg shadow-primary/20" : "hover:scale-[1.02]"
+                    tier.popular ? "bg-primary hover:bg-primary/90 hover:scale-[1.02] shadow-lg shadow-primary/20" : "hover:scale-[1.02] hover:bg-primary/10 hover:text-primary hover:border-primary"
                   )}
                 >
-                  Subscribe
+                  Subscribe Now
                 </Button>
               </CardFooter>
             </Card>

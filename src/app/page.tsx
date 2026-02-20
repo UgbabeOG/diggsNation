@@ -3,7 +3,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Users, Star, LayoutDashboard, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { Users, Star, LayoutDashboard, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import SubscriptionTiers from "@/components/SubscriptionTiers"
@@ -71,13 +71,22 @@ export default function Home() {
             Your front-row seat to the life and career of Steffon Diggs. Exclusive content, elite community, and unique experiences.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-16 duration-1000">
-            <Button size="lg" className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 group" asChild>
+            <Button 
+              size="lg" 
+              className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 group" 
+              asChild
+            >
               <Link href="#memberships">
                 Join The Nation
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 text-xl font-bold border-white text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all" asChild>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="h-14 px-8 text-xl font-bold border-white text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all" 
+              asChild
+            >
               <Link href="/feed">Explore Content</Link>
             </Button>
           </div>
@@ -94,7 +103,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative group/carousel">
+          <div className="relative group/carousel px-4">
             <Carousel
               opts={{
                 align: "start",
@@ -120,7 +129,7 @@ export default function Home() {
                               src={cardImg?.imageUrl || ""}
                               alt={card.title}
                               fill
-                              className="object-cover transition-transform group-hover:scale-105"
+                              className="object-cover transition-transform group-hover:scale-110 duration-500"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
                             <Badge className="absolute top-4 left-4 bg-primary font-bold">
@@ -147,11 +156,9 @@ export default function Home() {
                   )
                 })}
               </CarouselContent>
-              <div className="absolute -left-4 top-1/2 -translate-y-1/2 md:-left-12">
-                <CarouselPrevious className="h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
-              </div>
-              <div className="absolute -right-4 top-1/2 -translate-y-1/2 md:-right-12">
-                <CarouselNext className="h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
+              <div className="hidden md:block">
+                <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
+                <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
               </div>
             </Carousel>
           </div>

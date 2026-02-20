@@ -3,7 +3,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Trophy, ShoppingBag, Users, LayoutDashboard, Menu, X, LogIn, LogOut, User } from "lucide-react"
+import { Trophy, ShoppingBag, Users, LayoutDashboard, Menu, X, LogIn, LogOut, User, AlertCircle } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { toast } from "@/hooks/use-toast"
 
 const navItems = [
   { name: "Home", href: "/", icon: Trophy },
@@ -34,7 +35,14 @@ export default function Navigation() {
   const auth = useAuth()
 
   const handleSignIn = async () => {
-    if (!auth) return
+    if (!auth) {
+      toast({
+        variant: "destructive",
+        title: "Configuration Required",
+        description: "Firebase is not yet configured. Please check your API keys.",
+      })
+      return
+    }
     const provider = new GoogleAuthProvider()
     try {
       await signInWithPopup(auth, provider)
@@ -56,8 +64,8 @@ export default function Navigation() {
     <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-black italic tracking-tighter text-primary">DIGGS NATION</span>
+          <Link href="/" className="flex items-center space-x-2 group">
+            <span className="text-2xl font-black italic tracking-tighter text-primary group-hover:scale-105 transition-transform">DIGGS NATION</span>
           </Link>
         </div>
 
@@ -68,8 +76,8 @@ export default function Navigation() {
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === item.href ? "text-primary" : "text-muted-foreground"
+                "text-sm font-medium transition-all hover:text-primary hover:translate-y-[-1px]",
+                pathname === item.href ? "text-primary font-bold" : "text-muted-foreground"
               )}
             >
               {item.name}
@@ -81,7 +89,7 @@ export default function Navigation() {
           ) : user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0 overflow-hidden border-2 border-primary/20">
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full p-0 overflow-hidden border-2 border-primary/20 hover:border-primary transition-all">
                   <Avatar className="h-full w-full">
                     <AvatarImage src={user.photoURL || ""} alt={user.displayName || "User"} />
                     <AvatarFallback><User className="h-5 w-5" /></AvatarFallback>
@@ -106,7 +114,7 @@ export default function Navigation() {
             <Button 
               onClick={handleSignIn}
               variant="outline" 
-              className="border-primary text-primary hover:bg-primary hover:text-white font-bold h-10 px-6 transition-all"
+              className="border-primary text-primary hover:bg-primary hover:text-white font-bold h-10 px-6 transition-all hover:scale-105 active:scale-95"
             >
               Sign In
             </Button>
@@ -129,7 +137,7 @@ export default function Navigation() {
 
       {/* Mobile Nav Menu */}
       {isOpen && (
-        <div className="border-b bg-background p-4 md:hidden">
+        <div className="border-b bg-background p-4 md:hidden animate-in slide-in-from-top-4 duration-300">
           <div className="flex flex-col space-y-4">
             {navItems.map((item) => (
               <Link
@@ -138,7 +146,7 @@ export default function Navigation() {
                 onClick={() => setIsOpen(false)}
                 className={cn(
                   "flex items-center gap-2 text-base font-medium transition-colors hover:text-primary",
-                  pathname === item.href ? "text-primary" : "text-muted-foreground"
+                  pathname === item.href ? "text-primary font-bold" : "text-muted-foreground"
                 )}
               >
                 <item.icon className="h-5 w-5" />
@@ -146,9 +154,9 @@ export default function Navigation() {
               </Link>
             ))}
             {!user ? (
-              <Button onClick={handleSignIn} className="w-full bg-primary font-bold">Sign In</Button>
+              <Button onClick={handleSignIn} className="w-full bg-primary font-bold hover:scale-[1.02] active:scale-95 transition-all">Sign In</Button>
             ) : (
-              <Button onClick={handleSignOut} variant="outline" className="w-full border-destructive text-destructive font-bold">Sign Out</Button>
+              <Button onClick={handleSignOut} variant="outline" className="w-full border-destructive text-destructive font-bold hover:bg-destructive hover:text-white transition-all">Sign Out</Button>
             )}
           </div>
         </div>

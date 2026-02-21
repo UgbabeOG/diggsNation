@@ -1,9 +1,8 @@
-
 "use client"
 
 import Image from "next/image"
 import Link from "next/link"
-import { Users, Star, LayoutDashboard, ArrowRight } from "lucide-react"
+import { Users, Star, LayoutDashboard, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import SubscriptionTiers from "@/components/SubscriptionTiers"
@@ -36,12 +35,12 @@ const featuredCards = [
     tag: "Social"
   },
   {
-    title: "Join The Nation",
-    description: "Explore our exclusive membership tiers and elite perks.",
+    title: "Elite Perks",
+    description: "Explore our exclusive membership tiers and unique player experiences.",
     icon: Star,
     link: "#memberships",
     image: "hero-diggs",
-    tag: "Elite Access"
+    tag: "VVIP Access"
   }
 ]
 
@@ -49,10 +48,7 @@ export default function Home() {
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-diggs")
   const merchImage = PlaceHolderImages.find(img => img.id === "merch-jersey")
   
-  // Safe fallback to prevent construction errors if URL is missing
-  const heroUrl = heroImage?.imageUrl && heroImage.imageUrl !== "" 
-    ? heroImage.imageUrl 
-    : "https://picsum.photos/seed/diggs/1920/1080"
+  const heroUrl = heroImage?.imageUrl || "/IMG-20260219-WA0020.jpg"
 
   return (
     <div className="flex flex-col">
@@ -64,7 +60,7 @@ export default function Home() {
           fill
           className="object-cover object-top brightness-50"
           priority
-          data-ai-hint="american football player"
+          data-ai-hint="football player"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         <div className="container relative mx-auto flex h-full flex-col justify-center px-4">
@@ -78,18 +74,18 @@ export default function Home() {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-16 duration-1000">
             <Button 
               size="lg" 
-              className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/40 group animate-cta" 
+              className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/40 group animate-cta" 
               asChild
             >
-              <Link href="#memberships">
+              <a href="mailto:officialmanagement3067@gmail.com?subject=Diggs Nation Membership Inquiry">
                 Join The Nation
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
+              </a>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="h-14 px-8 text-xl font-bold border-white text-white hover:bg-white/10 hover:scale-105 active:scale-95 transition-all" 
+              className="h-14 px-8 text-xl font-bold border-white text-white hover:bg-white/10 transition-all" 
               asChild
             >
               <Link href="/feed">Explore Content</Link>
@@ -99,16 +95,14 @@ export default function Home() {
       </section>
 
       {/* Featured Carousel Section */}
-      <section className="py-24 bg-zinc-900/50">
+      <section className="py-24 bg-zinc-900/50 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="mb-12 flex items-center justify-between">
-            <div>
-              <h2 className="text-3xl font-black uppercase italic tracking-tighter">Explore the Nation</h2>
-              <p className="text-muted-foreground mt-2">Discover what's happening inside the platform.</p>
-            </div>
+          <div className="mb-12">
+            <h2 className="text-3xl font-black uppercase italic tracking-tighter">Explore the Nation</h2>
+            <p className="text-muted-foreground mt-2">Discover what's happening inside the platform.</p>
           </div>
 
-          <div className="relative group/carousel px-4">
+          <div className="relative">
             <Carousel
               opts={{
                 align: "start",
@@ -116,7 +110,7 @@ export default function Home() {
               }}
               plugins={[
                 Autoplay({
-                  delay: 4000,
+                  delay: 5000,
                   stopOnInteraction: false,
                 }),
               ]}
@@ -125,14 +119,12 @@ export default function Home() {
               <CarouselContent className="-ml-4">
                 {featuredCards.map((card, index) => {
                   const cardImgLookup = PlaceHolderImages.find(img => img.id === card.image)
-                  const cardUrl = cardImgLookup?.imageUrl && cardImgLookup.imageUrl !== "" 
-                    ? cardImgLookup.imageUrl 
-                    : `https://picsum.photos/seed/${card.image}/800/600`
+                  const cardUrl = cardImgLookup?.imageUrl || `/IMG-20260219-WA0022.jpg`
                   
                   return (
                     <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                       <Link href={card.link}>
-                        <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full shadow-lg hover:shadow-primary/5">
+                        <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full shadow-lg">
                           <div className="relative aspect-[16/9] overflow-hidden">
                             <Image
                               src={cardUrl}
@@ -165,9 +157,9 @@ export default function Home() {
                   )
                 })}
               </CarouselContent>
-              <div className="flex justify-center md:block">
-                <CarouselPrevious className="static md:absolute -left-12 top-1/2 md:-translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all mx-2 mt-8 md:mt-0" />
-                <CarouselNext className="static md:absolute -right-12 top-1/2 md:-translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all mx-2 mt-8 md:mt-0" />
+              <div className="flex items-center justify-end gap-2 mt-8">
+                <CarouselPrevious className="static h-12 w-12 border-primary text-primary hover:bg-primary hover:text-white transition-all translate-y-0" />
+                <CarouselNext className="static h-12 w-12 border-primary text-primary hover:bg-primary hover:text-white transition-all translate-y-0" />
               </div>
             </Carousel>
           </div>
@@ -186,13 +178,13 @@ export default function Home() {
               <p className="text-lg text-muted-foreground mb-8">
                 Official Steffon Diggs gear designed for performance and style. VVIP members get early access and exclusive discounts.
               </p>
-              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 h-14 px-8 font-bold text-lg animate-cta" asChild>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 h-14 px-8 font-bold text-lg animate-cta" asChild>
                 <Link href="/shop">Shop the Collection</Link>
               </Button>
             </div>
             <div className="flex-1 relative aspect-square w-full max-w-md overflow-hidden rounded-2xl border-2 border-primary/20 shadow-2xl">
               <Image 
-                src={merchImage?.imageUrl && merchImage.imageUrl !== "" ? merchImage.imageUrl : "https://picsum.photos/seed/merch/600/600"}
+                src={merchImage?.imageUrl || "/IMG-20260219-WA0017.jpg"}
                 alt={merchImage?.description || "Merchandise"}
                 fill
                 className="object-cover"

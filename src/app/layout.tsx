@@ -1,4 +1,3 @@
-
 import type {Metadata} from 'next';
 import './globals.css';
 import Navigation from '@/components/Navigation';
@@ -30,20 +29,20 @@ export default function RootLayout({
           <footer className="border-t py-12 bg-card">
             <div className="container mx-auto px-4">
               <div className="flex flex-col md:flex-row justify-between items-center gap-10">
-                <div className="text-center md:text-left shrink-0">
+                <div className="text-center md:text-left">
                   <span className="text-2xl font-black italic tracking-tighter text-primary">DIGGS NATION</span>
                   <p className="text-sm text-muted-foreground mt-2 max-w-xs">
                     The official engagement platform for Steffon Diggs. Join the elite community today.
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center md:justify-end gap-x-8 gap-y-4 text-sm text-muted-foreground font-medium">
+                <div className="flex flex-wrap justify-center md:justify-end gap-6 md:gap-8 text-sm text-muted-foreground font-medium">
                   <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
                   <Link href="#" className="hover:text-primary transition-colors">Terms of Service</Link>
                   <a 
                     href="mailto:officialmanagement3067@gmail.com" 
-                    className="hover:text-primary transition-colors flex flex-wrap items-center justify-center md:justify-end gap-2 text-center md:text-right"
+                    className="hover:text-primary transition-colors flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left"
                   >
-                    <span className="text-primary font-bold">Contact:</span>
+                    <span className="shrink-0 text-primary font-bold">Contact:</span>
                     <span className="break-all opacity-80 hover:opacity-100 transition-opacity">officialmanagement3067@gmail.com</span>
                   </a>
                 </div>

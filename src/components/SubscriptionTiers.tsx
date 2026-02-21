@@ -53,10 +53,12 @@ const tiers = [
 ]
 
 export default function SubscriptionTiers() {
+  const managementEmail = "officialmanagement3067@gmail.com"
+
   return (
     <section id="memberships" className="py-24">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="mb-4 text-4xl font-black uppercase tracking-tight md:text-5xl">Join Diggs Nation</h2>
+        <h2 className="mb-4 text-4xl font-black uppercase tracking-tight md:text-5xl italic">Join Diggs Nation</h2>
         <p className="mx-auto mb-16 max-w-2xl text-lg text-muted-foreground">
           Unlock exclusive content, behind-the-scenes access, and join an elite community of fans.
         </p>
@@ -66,32 +68,34 @@ export default function SubscriptionTiers() {
             <Card 
               key={tier.name} 
               className={cn(
-                "relative flex flex-col border-2 transition-all hover:scale-105 group",
+                "relative flex flex-col border-2 transition-all group",
                 tier.popular ? "border-primary shadow-2xl shadow-primary/20" : "border-border"
               )}
             >
               {tier.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                  <Badge className="bg-primary px-3 py-1 text-white animate-pulse">MOST POPULAR</Badge>
+                  <Badge className="bg-primary px-3 py-1 text-white uppercase font-black tracking-widest">MOST POPULAR</Badge>
                 </div>
               )}
               <CardHeader>
                 <div className={cn("mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110", tier.color)}>
                   <tier.icon className="h-6 w-6 text-white" />
                 </div>
-                <CardTitle className="text-2xl font-bold">{tier.name}</CardTitle>
+                <CardTitle className="text-2xl font-black uppercase italic">{tier.name}</CardTitle>
                 <div className="mt-2 flex items-baseline justify-center gap-1">
-                  <span className="text-4xl font-black">{tier.price}</span>
-                  <span className="text-sm text-muted-foreground">/month</span>
+                  <span className="text-4xl font-black tracking-tighter">{tier.price}</span>
+                  <span className="text-sm text-muted-foreground font-bold">/month</span>
                 </div>
-                <CardDescription className="mt-4">{tier.description}</CardDescription>
+                <CardDescription className="mt-4 font-medium">{tier.description}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow">
                 <ul className="space-y-3 text-left">
                   {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2">
-                      <Check className="h-4 w-4 text-primary" />
-                      <span className="text-sm">{feature}</span>
+                    <li key={feature} className="flex items-center gap-3">
+                      <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                        <Check className="h-3 w-3 text-primary" />
+                      </div>
+                      <span className="text-sm font-medium text-slate-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -100,13 +104,16 @@ export default function SubscriptionTiers() {
                 <Button 
                   variant={tier.buttonVariant} 
                   className={cn(
-                    "w-full h-12 text-lg font-bold uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-95",
+                    "w-full h-12 text-lg font-bold uppercase tracking-widest transition-all",
                     tier.popular 
                       ? "bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 animate-cta" 
                       : "hover:bg-primary/10 hover:text-primary hover:border-primary"
                   )}
+                  asChild
                 >
-                  Subscribe Now
+                  <a href={`mailto:${managementEmail}?subject=Inquiry: ${tier.name} Membership Tier&body=I am interested in joining Diggs Nation as a ${tier.name} member.`}>
+                    Subscribe Now
+                  </a>
                 </Button>
               </CardFooter>
             </Card>

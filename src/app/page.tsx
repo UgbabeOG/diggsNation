@@ -57,7 +57,7 @@ export default function Home() {
           src={heroImage?.imageUrl || ""}
           alt={heroImage?.description || ""}
           fill
-          className="object-cover brightness-50"
+          className="object-cover object-top brightness-50"
           priority
           data-ai-hint="american football player"
         />
@@ -73,7 +73,7 @@ export default function Home() {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-16 duration-1000">
             <Button 
               size="lg" 
-              className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 group" 
+              className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/40 group" 
               asChild
             >
               <Link href="#memberships">
@@ -119,11 +119,11 @@ export default function Home() {
             >
               <CarouselContent className="-ml-4">
                 {featuredCards.map((card, index) => {
-                  const cardImg = PlaceHolderImages.find(img => img.id === card.image)
+                  const cardImg = PlaceHolderImages.find(img => img.id === (card.image === "hero-diggs" ? "hero-diggs" : card.image))
                   return (
                     <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                       <Link href={card.link}>
-                        <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full shadow-lg">
+                        <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full shadow-lg hover:shadow-primary/5">
                           <div className="relative aspect-[16/9] overflow-hidden">
                             <Image
                               src={cardImg?.imageUrl || ""}
@@ -156,9 +156,9 @@ export default function Home() {
                   )
                 })}
               </CarouselContent>
-              <div className="hidden md:block">
-                <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
-                <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all opacity-0 group-hover/carousel:opacity-100" />
+              <div className="flex justify-center md:block">
+                <CarouselPrevious className="static md:absolute -left-12 top-1/2 md:-translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all mx-2 mt-8 md:mt-0" />
+                <CarouselNext className="static md:absolute -right-12 top-1/2 md:-translate-y-1/2 h-10 w-10 border-primary text-primary hover:bg-primary hover:text-white transition-all mx-2 mt-8 md:mt-0" />
               </div>
             </Carousel>
           </div>
@@ -177,7 +177,7 @@ export default function Home() {
               <p className="text-lg text-muted-foreground mb-8">
                 Official Steffon Diggs gear designed for performance and style. VVIP members get early access and exclusive discounts.
               </p>
-              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20" asChild>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 h-14 px-8 font-bold text-lg" asChild>
                 <Link href="/shop">Shop the Collection</Link>
               </Button>
             </div>

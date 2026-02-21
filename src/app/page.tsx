@@ -2,20 +2,21 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Users, Star, LayoutDashboard, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { Users, Star, LayoutDashboard, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import SubscriptionTiers from "@/components/SubscriptionTiers"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import Autoplay from "embla-carousel-autoplay"
+import { useState, useEffect, useCallback } from "react"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 
 const featuredCards = [
   {
@@ -45,10 +46,31 @@ const featuredCards = [
 ]
 
 export default function Home() {
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+  const [count, setCount] = useState(0)
+
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-diggs")
   const merchImage = PlaceHolderImages.find(img => img.id === "merch-jersey")
   
   const heroUrl = heroImage?.imageUrl || "/IMG-20260219-WA0020.jpg"
+
+  useEffect(() => {
+    if (!api) return
+
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap())
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
+
+  const scrollTo = useCallback((index: number) => {
+    api?.scrollTo(index)
+  }, [api])
+
+  const managementEmail = "officialmanagement3067@gmail.com"
 
   return (
     <div className="flex flex-col">
@@ -77,7 +99,7 @@ export default function Home() {
               className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/40 group animate-cta" 
               asChild
             >
-              <a href="mailto:officialmanagement3067@gmail.com?subject=Diggs Nation Membership Inquiry">
+              <a href={`mailto:${managementEmail}?subject=Diggs Nation Membership Inquiry&body=I am interested in joining Diggs Nation.`}>
                 Join The Nation
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </a>
@@ -97,13 +119,16 @@ export default function Home() {
       {/* Featured Carousel Section */}
       <section className="py-24 bg-zinc-900/50 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="mb-12">
-            <h2 className="text-3xl font-black uppercase italic tracking-tighter">Explore the Nation</h2>
-            <p className="text-muted-foreground mt-2">Discover what's happening inside the platform.</p>
+          <div className="mb-12 flex flex-col md:flex-row justify-between items-end gap-4">
+            <div>
+              <h2 className="text-3xl font-black uppercase italic tracking-tighter">Explore the Nation</h2>
+              <p className="text-muted-foreground mt-2">Discover what's happening inside the platform.</p>
+            </div>
           </div>
 
           <div className="relative">
             <Carousel
+              setApi={setApi}
               opts={{
                 align: "start",
                 loop: true,
@@ -157,11 +182,24 @@ export default function Home() {
                   )
                 })}
               </CarouselContent>
-              <div className="flex items-center justify-end gap-2 mt-8">
-                <CarouselPrevious className="static h-12 w-12 border-primary text-primary hover:bg-primary hover:text-white transition-all translate-y-0" />
-                <CarouselNext className="static h-12 w-12 border-primary text-primary hover:bg-primary hover:text-white transition-all translate-y-0" />
-              </div>
             </Carousel>
+            
+            {/* Centered Dot Indicators */}
+            <div className="flex items-center justify-center gap-2 mt-12">
+              {Array.from({ length: count }).map((_, i) => (
+                <button
+                  key={i}
+                  className={cn(
+                    "h-2 w-2 rounded-full transition-all duration-300",
+                    current === i 
+                      ? "bg-primary w-8" 
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                  )}
+                  onClick={() => scrollTo(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -1,4 +1,3 @@
-
 "use client"
 
 import Image from "next/image"
@@ -73,7 +72,7 @@ export default function Home() {
           <div className="mt-10 flex flex-col gap-4 sm:flex-row animate-in fade-in slide-in-from-bottom-16 duration-1000">
             <Button 
               size="lg" 
-              className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/40 group" 
+              className="h-14 px-8 text-xl font-bold bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/40 group animate-cta" 
               asChild
             >
               <Link href="#memberships">
@@ -119,7 +118,7 @@ export default function Home() {
             >
               <CarouselContent className="-ml-4">
                 {featuredCards.map((card, index) => {
-                  const cardImg = PlaceHolderImages.find(img => img.id === (card.image === "hero-diggs" ? "hero-diggs" : card.image))
+                  const cardImg = PlaceHolderImages.find(img => img.id === card.image)
                   return (
                     <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                       <Link href={card.link}>
@@ -177,7 +176,7 @@ export default function Home() {
               <p className="text-lg text-muted-foreground mb-8">
                 Official Steffon Diggs gear designed for performance and style. VVIP members get early access and exclusive discounts.
               </p>
-              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 h-14 px-8 font-bold text-lg" asChild>
+              <Button size="lg" className="bg-primary hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/20 h-14 px-8 font-bold text-lg animate-cta" asChild>
                 <Link href="/shop">Shop the Collection</Link>
               </Button>
             </div>

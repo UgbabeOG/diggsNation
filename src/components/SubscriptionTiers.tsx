@@ -1,4 +1,3 @@
-
 "use client"
 
 import { Check, Crown, ShieldCheck, Zap } from "lucide-react"
@@ -103,7 +102,7 @@ export default function SubscriptionTiers() {
                   className={cn(
                     "w-full h-12 text-lg font-bold uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-95",
                     tier.popular 
-                      ? "bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20" 
+                      ? "bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 animate-cta" 
                       : "hover:bg-primary/10 hover:text-primary hover:border-primary"
                   )}
                 >

@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from "next/image"
@@ -47,14 +48,19 @@ const featuredCards = [
 export default function Home() {
   const heroImage = PlaceHolderImages.find(img => img.id === "hero-diggs")
   const merchImage = PlaceHolderImages.find(img => img.id === "merch-jersey")
+  
+  // Safe fallback to prevent construction errors if URL is missing
+  const heroUrl = heroImage?.imageUrl && heroImage.imageUrl !== "" 
+    ? heroImage.imageUrl 
+    : "https://picsum.photos/seed/diggs/1920/1080"
 
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative h-[85vh] w-full overflow-hidden">
         <Image
-          src={heroImage?.imageUrl || ""}
-          alt={heroImage?.description || ""}
+          src={heroUrl}
+          alt={heroImage?.description || "Steffon Diggs"}
           fill
           className="object-cover object-top brightness-50"
           priority
@@ -118,14 +124,18 @@ export default function Home() {
             >
               <CarouselContent className="-ml-4">
                 {featuredCards.map((card, index) => {
-                  const cardImg = PlaceHolderImages.find(img => img.id === card.image)
+                  const cardImgLookup = PlaceHolderImages.find(img => img.id === card.image)
+                  const cardUrl = cardImgLookup?.imageUrl && cardImgLookup.imageUrl !== "" 
+                    ? cardImgLookup.imageUrl 
+                    : `https://picsum.photos/seed/${card.image}/800/600`
+                  
                   return (
                     <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                       <Link href={card.link}>
                         <Card className="group overflow-hidden border-border bg-card hover:border-primary/50 transition-all h-full shadow-lg hover:shadow-primary/5">
                           <div className="relative aspect-[16/9] overflow-hidden">
                             <Image
-                              src={cardImg?.imageUrl || ""}
+                              src={cardUrl}
                               alt={card.title}
                               fill
                               className="object-cover transition-transform group-hover:scale-110 duration-500"
@@ -182,8 +192,8 @@ export default function Home() {
             </div>
             <div className="flex-1 relative aspect-square w-full max-w-md overflow-hidden rounded-2xl border-2 border-primary/20 shadow-2xl">
               <Image 
-                src={merchImage?.imageUrl || ""}
-                alt={merchImage?.description || ""}
+                src={merchImage?.imageUrl && merchImage.imageUrl !== "" ? merchImage.imageUrl : "https://picsum.photos/seed/merch/600/600"}
+                alt={merchImage?.description || "Merchandise"}
                 fill
                 className="object-cover"
                 data-ai-hint="football jersey"
